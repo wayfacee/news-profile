@@ -1,4 +1,6 @@
-import { Button, FormInput } from "@/shared/ui";
+import { Button } from "@/shared/ui/Button";
+import { Form } from "@/shared/ui/Form";
+import { FormInput } from "@/shared/ui/FormInput";
 import {
   Card,
   CardContent,
@@ -6,21 +8,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/shared/ui";
-import { TabsContent } from "@/shared/ui";
-import { FormProvider, useForm } from "react-hook-form";
-import { formLoginSchema, TFormLoginValues } from "../model/constants/schemas";
+} from "@/shared/ui/Card";
+import { TabsContent } from "@/shared/ui/Tabs";
+import { useForm } from "react-hook-form";
+import { formLoginSchema } from "../model/constants/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch, useToast } from "@/shared/hooks";
-import { loginByUsername } from "../model/services/loginByUsername";
-import { useNavigate } from "react-router-dom";
-import { USER_LOCALSTORAGE_KEY } from "@/shared/const";
+import { useLoginMutation } from "@/entities/auth";
+import { LoginSchema } from "../model/types/loginTypes";
 
 export const LoginForm = () => {
-  const dispatch = useAppDispatch();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const form = useForm<TFormLoginValues>({
+  const [login] = useLoginMutation();
+  
+  const form = useForm<LoginSchema>({
     resolver: zodResolver(formLoginSchema),
     defaultValues: {
       username: "Admin",
@@ -28,33 +27,12 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = async ({ username, password }: TFormLoginValues) => {
-    try {
-      const result = await dispatch(loginByUsername({ username, password }));
-      const userId = JSON.parse(
-        localStorage.getItem(USER_LOCALSTORAGE_KEY) || "",
-      );
-
-      if (result.meta.requestStatus === "rejected") {
-        throw Error();
-      }
-
-      toast({
-        title: "Вы успешно вошли в свой аккаунт!",
-      });
-      navigate(`/profile/${userId}`);
-    } catch (e) {
-      console.log("error LOGINFORM", e);
-      toast({
-        variant: "destructive",
-        title: "Не удалось войти в аккаунт",
-        description: "Введите корректные данные или попробуйте позже!",
-      });
-    }
+  const onSubmit = async ({ username, password }: LoginSchema) => {
+    await login({ username, password });
   };
 
   return (
-    <FormProvider {...form}>
+    <Form {...form}>
       <TabsContent value="login" asChild>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Card>
@@ -76,7 +54,7 @@ export const LoginForm = () => {
               <div className="space-y-1">
                 <FormInput
                   name="password"
-                  label="Пароль"
+                  label="Password"
                   type="password"
                   required
                   placeholder="Enter your password"
@@ -92,6 +70,6 @@ export const LoginForm = () => {
           </Card>
         </form>
       </TabsContent>
-    </FormProvider>
+    </Form>
   );
 };

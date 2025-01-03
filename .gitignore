@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env*local
+ddd.js
+/src/shared/api/apiAccessTokenIsBrokenEvent.ts

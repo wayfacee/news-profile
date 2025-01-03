@@ -1,13 +1,12 @@
-import { AppRouter } from "./providers/router";
+import { Outlet } from "react-router-dom";
+import { useInitProfile } from "@/entities/profile";
 
 const App = () => {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-1">
-        <AppRouter />
-      </div>
-    </div>
-  );
+  const { isLoading } = useInitProfile();
+
+  if (isLoading) return "Fetching profile...";
+
+  return <Outlet />;
 };
 
 export default App;

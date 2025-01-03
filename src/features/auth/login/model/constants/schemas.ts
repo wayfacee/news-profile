@@ -26,5 +26,4 @@ export const formLoginSchema = z.object({
 //   });
 
 // types:
-export type TFormLoginValues = z.infer<typeof formLoginSchema>;
 // export type TFormRegisterValues = z.infer<typeof formRegisterSchema>;

@@ -1,0 +1,1 @@
+export const LS_WEATHER_HISTORY = "weatherHistory";

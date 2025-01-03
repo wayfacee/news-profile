@@ -1,11 +1,7 @@
-import { LoginForm } from "@/features/auth/login";
+import { AuthForm } from "@/widgets/auth";
 
 const AuthPage = () => {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+  return <AuthForm className="mt-14" />;
 };
 
 export default AuthPage;
