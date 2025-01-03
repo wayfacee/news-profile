@@ -26,5 +26,4 @@ dist-ssr
 .env*local
 ddd.js
 /src/shared/api/apiAccessTokenIsBrokenEvent.ts
-json-server/
-./json-server
+jsonserver/
