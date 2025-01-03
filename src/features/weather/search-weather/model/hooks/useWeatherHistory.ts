@@ -13,9 +13,11 @@ export const useWeatherHistory = () => {
         const updatedHistory =
           historyIds.length >= 5 ? historyIds.slice(1) : historyIds;
         const newHistory = [...updatedHistory, id];
-        
+
         setToLS(LS_WEATHER_HISTORY, newHistory);
         setHistoryIds(newHistory);
+      } else {
+        setToLS(LS_WEATHER_HISTORY, [id]);
       }
     },
     [historyIds],
