@@ -5,9 +5,9 @@ import { ROUTES } from "@/shared/config/router";
 import { AuthPage } from "@/pages/AuthPage";
 import { NewsPage } from "@/pages/NewsPage";
 import { ProfilePage } from "@/pages/ProfilePage";
-import { WeatherDetailsPage } from "@/pages/WeatherDetailsPage";
+import { WeatherDetailsPage } from "@/pages/weather/WeatherDetailsPage";
 import { CurrencyPage } from "@/pages/CurrencyPage";
-import { WeatherPage } from "@/pages/WeatherPage";
+import { WeatherPage } from "@/pages/weather/WeatherPage";
 
 import { LandingLayout } from "@/app/layouts/LandingLayout";
 import { MainLayout } from "@/app/layouts/MainLayout";
